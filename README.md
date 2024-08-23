@@ -18,7 +18,9 @@ This is a VSCode extension that allows you to easily decompile APK files and vie
 ## Usage
 
 1. Install the required tools:
-brew install apktool jadx
+```
+brew install apktool jadx jq
+```
 2. Install the Smalise and Smali2Java extensions in VSCode.
 3. Run the command "Decompile APK" from the Command Palette (`Ctrl+Shift+P`).
 4. Select an APK file to decompile.

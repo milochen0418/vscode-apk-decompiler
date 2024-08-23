@@ -10,59 +10,40 @@ apkfile=$1
 
 # Check if Homebrew is installed
 if ! command -v brew &> /dev/null; then
-    echo "Homebrew is not installed. Please resolve the Homebrew installation issue. Possible steps:"
-    echo "1. Open Terminal."
-    echo "2. Run the following command to install Homebrew:"
-    echo '   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
-    echo "For more information, visit https://brew.sh"
+    echo "Homebrew is not installed. Please install it using the following command:"
+    echo '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"'
     exit 1
 else
     echo "Homebrew is already installed."
 fi
 
-# Check if apktool is installed
-# apktool is used to unpack APK files into smali code and view the full AndroidManifest.xml
-if ! command -v apktool &> /dev/null
-then
-    echo "apktool could not be found, installing..."
-    brew install apktool
-fi
+# Install required packages using Homebrew
+required_brews=("apktool" "jadx" "jq")
+for brew_package in "${required_brews[@]}"; do
+    if ! command -v $brew_package &> /dev/null; then
+        echo "$brew_package could not be found, installing..."
+        brew install $brew_package
+    else
+        echo "$brew_package is already installed."
+    fi
+done
 
-# Check if jadx is installed
-# jadx decompiles smali into Java code; in VSCode, we use the Smali2Java extension to convert smali to Java files for viewing.
-if ! command -v jadx &> /dev/null
-then
-    echo "jadx could not be found, installing..."
-    brew install jadx
-fi
+# Path to the VSCode executable (assuming it's in the PATH)
+code_cmd="code"
 
-# Path to the VSCode extension directory
-VSCODE_EXTENSIONS="$HOME/.vscode/extensions"
-
-# Check if the Smalise extension is installed
-if ls "$VSCODE_EXTENSIONS" | grep -q "smalise"; then
-    echo "Smalise extension is installed."
-else
-    echo "Please install the Smalise extension in VSCode."
-fi
-
-# Check if the Smali2Java extension is installed
-if ls "$VSCODE_EXTENSIONS" | grep -q "smali2java"; then
-    echo "Smali2Java extension is installed."
-else
-    echo "Please install the Smali2Java extension in VSCode."
-fi
+# Install required VSCode extensions
+required_extensions=("loyieking.smalise" "ooooonly.smali2java")
+for extension in "${required_extensions[@]}"; do
+    if ! $code_cmd --list-extensions | grep -q "$extension"; then
+        echo "VSCode extension $extension is not installed, installing..."
+        $code_cmd --install-extension "$extension"
+    else
+        echo "VSCode extension $extension is already installed."
+    fi
+done
 
 setup_jadx_path_for_smali2java_vscode_extension() {
-    # Check if jq is installed
-    if ! command -v jq &> /dev/null; then
-        echo "jq is not installed, installing via brew..."
-        brew install jq
-        if [ $? -ne 0 ]; then
-            echo "Failed to install jq. Please install jq manually and retry."
-            return 1
-        fi
-    fi
+    # Ensure jq is installed (already handled in the package installation step)
 
     # Path to the Visual Studio Code extension directory
     VSCODE_EXTENSIONS="$HOME/.vscode/extensions"
@@ -131,4 +112,4 @@ apktool d "$apkfile" -o "$output_dir"
 echo "Unpacking complete, output directory: $output_dir"
 
 # Open the output directory in VSCode
-code "$output_dir"
+$code_cmd "$output_dir"
