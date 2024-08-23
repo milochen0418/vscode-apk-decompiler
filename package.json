@@ -1,0 +1,37 @@
+{
+    "name": "decompile-apk",
+    "displayName": "Decompile APK",
+    "description": "A VSCode extension to decompile all APK files and friendly view decompiled code in Java",
+    "version": "0.0.1",
+    "publisher": "milochen0418",
+    "engines": {
+      "vscode": "^1.78.0"
+    },
+    "categories": ["Other"],
+    "activationEvents": [
+      "onCommand:extension.decompileApk"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+      "commands": [
+        {
+          "command": "extension.decompileApk",
+          "title": "Decompile APK"
+        }
+      ]
+    },
+    "scripts": {
+      "vscode:prepublish": "tsc -p ./",
+      "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+      "typescript": "^4.5.2",
+      "vscode": "^1.1.37",
+      "@types/node": "^12.12.6"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/milochen0418/vscode-apk-decompiler.git"
+    }
+  }
+  
