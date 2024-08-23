@@ -28,8 +28,47 @@ for brew_package in "${required_brews[@]}"; do
     fi
 done
 
-# Path to the VSCode executable (assuming it's in the PATH)
-code_cmd="code"
+# Function to find the VSCode executable
+find_vscode_executable() {
+    # Check if 'code' is available in the PATH
+    if command -v code &> /dev/null; then
+        echo "code"
+        return 0
+    fi
+
+    # Check common installation paths
+    local vscode_paths=(
+        "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+        "$HOME/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+        "/usr/local/bin/code"
+        "/usr/bin/code"
+    )
+
+    for path in "${vscode_paths[@]}"; do
+        if [ -x "$path" ]; then
+            echo "$path"
+            return 0
+        fi
+    done
+
+    # If not found, prompt the user to input the path
+    read -p "Could not find VSCode automatically. Please enter the path to the VSCode executable: " user_path
+    if [ -x "$user_path" ]; then
+        echo "$user_path"
+        return 0
+    else
+        echo "Invalid path provided. Exiting..."
+        return 1
+    fi
+}
+
+# Get the VSCode executable path
+code_cmd=$(find_vscode_executable)
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+echo "Using VSCode executable: $code_cmd"
 
 # Install required VSCode extensions
 required_extensions=("loyieking.smalise" "ooooonly.smali2java")
