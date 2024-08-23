@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check if the script is running on macOS
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    echo "This script is only supported on macOS."
+    exit 1
+fi
+
+
 # Check if an APK file is provided as an argument
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <apk-file>"
