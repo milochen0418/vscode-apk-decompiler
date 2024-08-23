@@ -2,12 +2,13 @@
     "name": "decompile-apk",
     "displayName": "Decompile APK",
     "description": "A VSCode extension to decompile all APK files and friendly view decompiled code in Java. This extension is designed to work exclusively on macOS.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "milochen0418",
     "engines": {
       "vscode": "^1.78.0"
     },
     "categories": ["Other"],
+    "icon": "images/logo.png",
     "activationEvents": [
       "onCommand:extension.decompileApk"
     ],

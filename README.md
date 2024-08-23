@@ -1,8 +1,9 @@
 # Decompile APK Extension
 
-This is a VSCode extension that allows you to easily decompile APK files and view the code in VSCode.
+This is a VSCode extension that allows you to easily decompile APK files and view the code in VSCode.  
 
-It leverages macOS-specific tools and dependencies, such as Homebrew, and is not supported on other operating systems like Linux or Windows.
+It leverages macOS-specific tools and dependencies, such as Homebrew,   
+and is not supported on other operating systems like Linux or Windows.  
 
 ## Features
 
@@ -25,3 +26,7 @@ It leverages macOS-specific tools and dependencies, such as Homebrew, and is not
 ### 0.0.1
 
 Initial release.
+
+### 0.0.2
+
+Added announcement, indicating that only Mac OS X supports
