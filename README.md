@@ -1,3 +1,5 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/milochen0418/vscode-apk-decompiler.svg) ![License](https://img.shields.io/github/license/milochen0418/vscode-apk-decompiler.svg)  ![Download](https://img.shields.io/visual-studio-marketplace/d/milochen0418.decompile-apk.svg?label=Downloads&logo=visual-studio-code)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/milochen0418/vscode-apk-decompiler.svg) 
+
 # Decompile APK Extension
 
 This is a VSCode extension that allows you to easily decompile APK files and view the code in VSCode.  
